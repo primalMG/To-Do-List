@@ -7,15 +7,17 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UITableViewController {
     
     //todo:
     //reset all checkmarks,
-    // maybe add a filter,
+    // maybe add a filter/sort function
+    //split alerts from main vc
     // set up coredata
     
-    var list = ["get milk", "suck lips"]
+    var listItems: [NSManagedObject] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +34,26 @@ class ViewController: UITableViewController {
         navigationItem.leftBarButtonItems = [btnDeleteAll]
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRqst = NSFetchRequest<NSManagedObject>(entityName: "Items")
+        
+        do {
+            listItems = try managedContext.fetch(fetchRqst)
+        } catch let err as NSError {
+            print(err)
+        }
+    }
+    
     @objc func DeleteAllItems() {
         let deleteAllAlrt = UIAlertController(title: "Clear List", message: "Sure you want to delete all list items?", preferredStyle: .alert)
         deleteAllAlrt.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
-            self.list.removeAll()
+            self.listItems.removeAll()
             self.tableView.reloadData()
         }))
         deleteAllAlrt.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -54,32 +72,51 @@ class ViewController: UITableViewController {
         let addItemAlrt = UIAlertController(title: "Add Item", message: "What would you like to add to the list?", preferredStyle: .alert)
         
         
-        addItemAlrt.addTextField { (txtField) in
-            txtField.placeholder = "E.g.. Grab milk"
-            txtField.keyboardType = .default
-            addItemAlrt.addAction(UIAlertAction(title: "Add", style: .default, handler: { (action) in
-                print("Add item: " + txtField.text!)
-                self.list.insert(txtField.text!, at: 0)
-                self.tableView.performBatchUpdates({
-                    self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .left)
-                }, completion: nil)
-            }))
-        }
+        addItemAlrt.addAction(UIAlertAction(title: "Add", style: .default, handler: { (action) in
+            guard let textField = addItemAlrt.textFields?.first, let savedItem = textField.text else { return }
+            
+            self.Save(item: savedItem)
+        }))
         
+        addItemAlrt.addTextField(configurationHandler: nil)
         
         addItemAlrt.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
+
         self.present(addItemAlrt, animated: true, completion: nil)
     }
     
+    func Save(item: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate  else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        guard let entity = NSEntityDescription.entity(forEntityName: "Items", in: managedContext) else { return }
+        
+        let itm = NSManagedObject(entity: entity, insertInto: managedContext)
+        
+        itm.setValue(item, forKey: "item")
+        
+        do {
+            try managedContext.save()
+            listItems.insert(itm, at: 0)
+            self.tableView.performBatchUpdates({
+                self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .left)
+            }, completion: nil)
+        } catch let error as NSError {
+            print(error)
+        }
+    }
+    
+    
     //MARK: - TABLEBIEW CODE
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return listItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = list[indexPath.row]
+        let item = listItems[indexPath.row]
+        cell.textLabel?.text = item.value(forKeyPath: "item") as? String
         return cell
     }
     
@@ -98,7 +135,7 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
-            self.list.remove(at: indexPath.row)
+            self.listItems.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .left)
             handler(true)
         }
