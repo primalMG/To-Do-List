@@ -18,6 +18,7 @@ class ViewController: UITableViewController {
     // set up coredata
     
     var listItems: [NSManagedObject] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +108,23 @@ class ViewController: UITableViewController {
         }
     }
     
+    func Delete(item: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        guard let entity = NSEntityDescription.entity(forEntityName: "items", in: managedContext) else { return }
+        
+        let itm = NSManagedObject(entity: entity, insertInto: managedContext)
+        
+//        itm.setValue(item, forKey: "item")
+        itm.mutableSetValue(forKey: "item")
+        
+        do {
+        } catch let error as NSError {
+            print(error)
+        }
+    }
     
     //MARK: - TABLEBIEW CODE
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,8 +153,16 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
-            self.listItems.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .left)
+             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            let managedContext = appDelegate.persistentContainer.viewContext
+            managedContext.delete(self.listItems[indexPath.row])
+            do {
+                try managedContext.save()
+                self.listItems.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .left)
+            } catch let err as NSError {
+                print(err)
+            }
             handler(true)
         }
         deleteAction.backgroundColor = .red
