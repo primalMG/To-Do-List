@@ -53,9 +53,21 @@ class ViewController: UITableViewController {
     
     @objc func DeleteAllItems() {
         let deleteAllAlrt = UIAlertController(title: "Clear List", message: "Sure you want to delete all list items?", preferredStyle: .alert)
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Items")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
         deleteAllAlrt.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
             self.listItems.removeAll()
             self.tableView.reloadData()
+            do {
+                try managedContext.execute(deleteRequest)
+            } catch let err as NSError {
+                print(err)
+            }
+            
         }))
         deleteAllAlrt.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
