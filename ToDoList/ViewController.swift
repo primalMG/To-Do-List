@@ -33,6 +33,7 @@ class ViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = btnAdd
         navigationItem.leftBarButtonItems = [btnDeleteAll]
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,16 +68,12 @@ class ViewController: UITableViewController {
             } catch let err as NSError {
                 print(err)
             }
-            
         }))
         deleteAllAlrt.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
         self.present(deleteAllAlrt, animated: true, completion: nil)
-        
     }
     
     @objc func ResetCheckedItems() {
-        
         print("Clear all checkmarks")
     }
     
@@ -87,20 +84,17 @@ class ViewController: UITableViewController {
         
         addItemAlrt.addAction(UIAlertAction(title: "Add", style: .default, handler: { (action) in
             guard let textField = addItemAlrt.textFields?.first, let savedItem = textField.text else { return }
-            
             self.Save(item: savedItem)
         }))
         
         addItemAlrt.addTextField(configurationHandler: nil)
-        
         addItemAlrt.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
         self.present(addItemAlrt, animated: true, completion: nil)
     }
     
     func Save(item: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate  else { return }
-        
+        let date = NSDate()
         let managedContext = appDelegate.persistentContainer.viewContext
         
         guard let entity = NSEntityDescription.entity(forEntityName: "Items", in: managedContext) else { return }
@@ -108,8 +102,10 @@ class ViewController: UITableViewController {
         let itm = NSManagedObject(entity: entity, insertInto: managedContext)
         
         itm.setValue(item, forKey: "item")
+        itm.setValue(date, forKey: "date")
         
         do {
+            print(date)
             try managedContext.save()
             listItems.insert(itm, at: 0)
             self.tableView.performBatchUpdates({
@@ -120,23 +116,6 @@ class ViewController: UITableViewController {
         }
     }
     
-    func Delete(item: String) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        guard let entity = NSEntityDescription.entity(forEntityName: "items", in: managedContext) else { return }
-        
-        let itm = NSManagedObject(entity: entity, insertInto: managedContext)
-        
-//        itm.setValue(item, forKey: "item")
-        itm.mutableSetValue(forKey: "item")
-        
-        do {
-        } catch let error as NSError {
-            print(error)
-        }
-    }
     
     //MARK: - TABLEBIEW CODE
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
