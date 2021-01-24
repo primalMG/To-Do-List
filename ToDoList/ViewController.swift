@@ -16,6 +16,7 @@ class ViewController: UITableViewController {
     // maybe add a filter/sort function
     //split alerts from main vc
     // set up coredata
+    //Add a sub list functionality...
     
     var listItems: [NSManagedObject] = []
     

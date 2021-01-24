@@ -14,6 +14,9 @@
 		1162678625AB844C00C0FBC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1162678525AB844C00C0FBC1 /* Assets.xcassets */; };
 		1162678925AB844C00C0FBC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1162678725AB844C00C0FBC1 /* LaunchScreen.storyboard */; };
 		1162679425AB844C00C0FBC1 /* ToDoListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162679325AB844C00C0FBC1 /* ToDoListTests.swift */; };
+		2CDC894525BDB81D00D9535A /* SubTasksOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC894425BDB81D00D9535A /* SubTasksOverviewViewController.swift */; };
+		2CDC894925BDBB6700D9535A /* SubTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC894825BDBB6700D9535A /* SubTasks.swift */; };
+		2CDC894D25BDBB9C00D9535A /* SelectSubTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC894C25BDBB9C00D9535A /* SelectSubTaskViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,9 @@
 		1162678F25AB844C00C0FBC1 /* ToDoListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1162679325AB844C00C0FBC1 /* ToDoListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTests.swift; sourceTree = "<group>"; };
 		1162679525AB844C00C0FBC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CDC894425BDB81D00D9535A /* SubTasksOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTasksOverviewViewController.swift; sourceTree = "<group>"; };
+		2CDC894825BDBB6700D9535A /* SubTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTasks.swift; sourceTree = "<group>"; };
+		2CDC894C25BDBB9C00D9535A /* SelectSubTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSubTaskViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +92,9 @@
 				1162678725AB844C00C0FBC1 /* LaunchScreen.storyboard */,
 				1162678A25AB844C00C0FBC1 /* Info.plist */,
 				1162678225AB844B00C0FBC1 /* ToDoList.xcdatamodeld */,
+				2CDC894425BDB81D00D9535A /* SubTasksOverviewViewController.swift */,
+				2CDC894825BDBB6700D9535A /* SubTasks.swift */,
+				2CDC894C25BDBB9C00D9535A /* SelectSubTaskViewController.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -144,7 +153,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Marcus Gardner";
 				TargetAttributes = {
 					1162677525AB844A00C0FBC1 = {
@@ -201,8 +210,11 @@
 			files = (
 				1162677E25AB844A00C0FBC1 /* ViewController.swift in Sources */,
 				1162677A25AB844A00C0FBC1 /* AppDelegate.swift in Sources */,
+				2CDC894525BDB81D00D9535A /* SubTasksOverviewViewController.swift in Sources */,
+				2CDC894D25BDBB9C00D9535A /* SelectSubTaskViewController.swift in Sources */,
 				1162677C25AB844A00C0FBC1 /* SceneDelegate.swift in Sources */,
 				1162678425AB844B00C0FBC1 /* ToDoList.xcdatamodeld in Sources */,
+				2CDC894925BDBB6700D9535A /* SubTasks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +274,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -322,6 +335,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
