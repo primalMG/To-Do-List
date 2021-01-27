@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G7016" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Items" representedClassName="Items" syncable="YES" codeGenerationType="class">
-        <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="item" optional="YES" attributeType="String"/>
+        <attribute name="subTasks" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="newRelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SubItems" inverseName="subTasks" inverseEntity="SubItems"/>
+    </entity>
+    <entity name="SubItems" representedClassName="SubItems" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="item" optional="YES"/>
+        <relationship name="subTasks" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Items" inverseName="newRelationship" inverseEntity="Items"/>
     </entity>
     <elements>
-        <element name="Items" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Items" positionX="-264.69140625" positionY="-59.81640625" width="138.38671875" height="118"/>
+        <element name="SubItems" positionX="-63" positionY="9" width="128" height="58"/>
     </elements>
 </model>

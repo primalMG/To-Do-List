@@ -19,7 +19,7 @@ class ViewController: UITableViewController {
     //Add a sub list functionality...
     
     var listItems: [NSManagedObject] = []
-    
+    let subtask = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,9 +88,20 @@ class ViewController: UITableViewController {
             self.Save(item: savedItem)
         }))
         
+        addItemAlrt.addAction(UIAlertAction(title: "Add Sub List", style: .default, handler: { (action) in
+            guard let textField = addItemAlrt.textFields?.first, let savedItem = textField.text else { return }
+            self.SaveSubTasks()
+        }))
+        
         addItemAlrt.addTextField(configurationHandler: nil)
         addItemAlrt.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(addItemAlrt, animated: true, completion: nil)
+    }
+    
+    func SaveSubTasks() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate  else { return }
+        let date = NSDate()
+        let managedContext = appDelegate.persistentContainer.viewContext
     }
     
     func Save(item: String) {
@@ -106,7 +117,7 @@ class ViewController: UITableViewController {
         itm.setValue(date, forKey: "date")
         
         do {
-            print(date)
+            print(itm)
             try managedContext.save()
             listItems.insert(itm, at: 0)
             self.tableView.performBatchUpdates({
@@ -127,6 +138,11 @@ class ViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let item = listItems[indexPath.row]
         cell.textLabel?.text = item.value(forKeyPath: "item") as? String
+//        if item.value(forKey: "subtask") as? Bool == true {
+//            cell.accessoryType = .disclosureIndicator
+//        } else {
+//            cell.accessoryType = .none
+//        }
         return cell
     }
     
