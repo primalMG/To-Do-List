@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import CoreData
+import FirebaseDatabase
+
 
 class ViewController: UITableViewController {
     
@@ -18,18 +19,22 @@ class ViewController: UITableViewController {
     // set up coredata
     //Add a sub list functionality...
     
-    var listItems: [NSManagedObject] = []
-    let subtask = false
+//    var listItems: [List] = []
+    var subtask = false
+    var ref : DatabaseReference!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        ref = Database.database().reference()
         
         title = "To Do List"
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         let btnAdd = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(AddItem))
-        let btnReset = UIBarButtonItem(title: "Reset All", style: .plain, target: self, action: #selector(ResetCheckedItems))
+//        let btnReset = UIBarButtonItem(title: "Reset All", style: .plain, target: self, action: #selector(ResetCheckedItems))
         let btnDeleteAll = UIBarButtonItem(title: "Delete All", style: .plain, target: self, action: #selector(DeleteAllItems))
         
         navigationItem.rightBarButtonItem = btnAdd
@@ -44,31 +49,17 @@ class ViewController: UITableViewController {
         
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRqst = NSFetchRequest<NSManagedObject>(entityName: "Items")
-        
-        do {
-            listItems = try managedContext.fetch(fetchRqst)
-        } catch let err as NSError {
-            print(err)
-        }
     }
     
     @objc func DeleteAllItems() {
         let deleteAllAlrt = UIAlertController(title: "Clear List", message: "Sure you want to delete all list items?", preferredStyle: .alert)
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Items")
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
         
         deleteAllAlrt.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
-            self.listItems.removeAll()
+//            self.listItems.removeAll()
             self.tableView.reloadData()
-            do {
-                try managedContext.execute(deleteRequest)
-            } catch let err as NSError {
-                print(err)
-            }
         }))
         deleteAllAlrt.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(deleteAllAlrt, animated: true, completion: nil)
@@ -102,6 +93,8 @@ class ViewController: UITableViewController {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate  else { return }
         let date = NSDate()
         let managedContext = appDelegate.persistentContainer.viewContext
+        
+//        guard let entity = NSEntityDescription.entity(forEntityName: "", in: <#T##NSManagedObjectContext#>)
     }
     
     func Save(item: String) {
@@ -109,35 +102,23 @@ class ViewController: UITableViewController {
         let date = NSDate()
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        guard let entity = NSEntityDescription.entity(forEntityName: "Items", in: managedContext) else { return }
+//        if booleanState == true {
+//            itm.setValue(subtask = true, forKey: "subTasks")
+//        }
         
-        let itm = NSManagedObject(entity: entity, insertInto: managedContext)
         
-        itm.setValue(item, forKey: "item")
-        itm.setValue(date, forKey: "date")
-        
-        do {
-            print(itm)
-            try managedContext.save()
-            listItems.insert(itm, at: 0)
-            self.tableView.performBatchUpdates({
-                self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .left)
-            }, completion: nil)
-        } catch let error as NSError {
-            print(error)
-        }
     }
     
     
     //MARK: - TABLEBIEW CODE
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listItems.count
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let item = listItems[indexPath.row]
-        cell.textLabel?.text = item.value(forKeyPath: "item") as? String
+//        let item = listItems[indexPath.row]
+//        cell.textLabel?.text = item.value(forKeyPath: "item") as? String
 //        if item.value(forKey: "subtask") as? Bool == true {
 //            cell.accessoryType = .disclosureIndicator
 //        } else {
@@ -163,14 +144,7 @@ class ViewController: UITableViewController {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
              guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             let managedContext = appDelegate.persistentContainer.viewContext
-            managedContext.delete(self.listItems[indexPath.row])
-            do {
-                try managedContext.save()
-                self.listItems.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .left)
-            } catch let err as NSError {
-                print(err)
-            }
+//            managedContext.delete(self.listItems[indexPath.row])
             handler(true)
         }
         deleteAction.backgroundColor = .red
