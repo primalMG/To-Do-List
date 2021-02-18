@@ -19,7 +19,7 @@ class ViewController: UITableViewController {
     // set up coredata
     //Add a sub list functionality...
     
-//    var listItems = []
+    var listItems = [Items]()
     var subtask = false
     var ref : DatabaseReference!
     let rootRef = Database.database().reference()
@@ -27,12 +27,19 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        rootRef.child("Lists").observe(DataEventType.value) { (snapshot) in
-            if let listDict = snapshot.value as? [String: AnyObject] {
-                print(listDict)
+        rootRef.child("Lists").observe(.childAdded) { (snapshot) in
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let item = dictionary["item"] as? String ?? ""
+                let date = dictionary["date"] as? String ?? ""
+                let hasSub = dictionary["hasSubList"] as? Bool ?? false
+                print(dictionary)
                 
-                let snap = listDict["item"] as? String
+                let items = Items(item: item, date: date, hasSubList: hasSub)
+                self.listItems.append(items)
                 
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
         
@@ -92,12 +99,11 @@ class ViewController: UITableViewController {
     
     
     func Save(item: String) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate  else { return }
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "dd-MM-yy ss:mm:hh"
         let date = dateFormat.string(from: Date())
         
-        let data = ["item": item, "date": date, "hasSubList": false] as [String : Any]
+        let data = ["item": item, "date": date, "hasSubList": true, "completed" : false] as [String : Any]
         let ref = rootRef.child("Lists").childByAutoId()
         
         ref.setValue(data)
@@ -106,32 +112,37 @@ class ViewController: UITableViewController {
     
     //MARK: - TABLEBIEW CODE
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return listItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-//        let item = listItems[indexPath.row]
-//        cell.textLabel?.text = item.value(forKeyPath: "item") as? String
-//        if item.value(forKey: "subtask") as? Bool == true {
-//            cell.accessoryType = .disclosureIndicator
-//        } else {
-//            cell.accessoryType = .none
-//        }
+        let item = listItems[indexPath.row]
+        cell.textLabel?.text = item.item
+        
+        if item.hasSubList == true {
+            cell.accessoryType = .disclosureIndicator
+        } else {
+            cell.accessoryType = .none
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
+//        tableView.deselectRow(at: indexPath, animated: false)
+
+//        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+
+//        if cell.accessoryType == .checkmark {
+//            cell.accessoryType = .none
+//        } else {
+//            cell.accessoryType = .checkmark
+//        }
         
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        
-        if cell.accessoryType == .checkmark {
-            cell.accessoryType = .none
-        } else {
-            cell.accessoryType = .checkmark
-        }
-        
+        let vc = ItemDetailViewController()
+        self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+//        self.present(vc, animated: true, completion: nil)
+
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
