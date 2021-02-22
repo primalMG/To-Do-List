@@ -8,13 +8,65 @@
 
 import UIKit
 
+protocol itemDelegate {
+    func CompletedItem()
+}
+
 class OverviewTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
+    var delegate : itemDelegate?
+    
+    let itemLabel : UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 20)
+        return lbl
+    }()
+    
+    let btnChecked : UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = .clear
+        btn.layer.cornerRadius = 5
+        btn.layer.borderWidth = 1
+        btn.layer.borderColor = UIColor.purple.cgColor
+        return btn
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        itemLabel.translatesAutoresizingMaskIntoConstraints = false
+        btnChecked.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.contentView.addSubview(itemLabel)
+        self.contentView.addSubview(btnChecked)
+        
+        btnChecked.addTarget(self, action: #selector(CompletedBtnTapped), for: .touchDown)
+        
+        NSLayoutConstraint.activate([
+            itemLabel.leadingAnchor.constraint(equalTo: self.btnChecked.trailingAnchor, constant: 10),
+            itemLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
+            
+            btnChecked.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 40),
+            btnChecked.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
+            btnChecked.heightAnchor.constraint(equalToConstant: 20),
+            
+            
+        ])
+    }
+    
+    @objc func CompletedBtnTapped() {
+        delegate?.CompletedItem()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

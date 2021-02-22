@@ -13,13 +13,12 @@ import FirebaseDatabase
 class ViewController: UITableViewController {
     
     //todo:
-    //reset all checkmarks,
     // maybe add a filter/sort function
     //split alerts from main vc
-    // set up coredata
     //Add a sub list functionality...
     
     var listItems = [Items]()
+    var completedItems = [Items]()
     var subtask = false
     var ref : DatabaseReference!
     let rootRef = Database.database().reference()
@@ -33,11 +32,15 @@ class ViewController: UITableViewController {
                 let date = dictionary["date"] as? String ?? ""
                 let hasSub = dictionary["hasSubList"] as? Bool ?? false
                 let id = dictionary["id"] as? String ?? ""
-                print(dictionary)
-                
+                let completed = dictionary["completed"] as? Bool ?? false
                 let items = Items(item: item, date: date, hasSubList: hasSub, id: id)
-                self.listItems.append(items)
-                
+
+                if completed != false {
+                    self.completedItems.append(items)
+                } else {
+                    self.listItems.append(items)
+                }
+
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -46,7 +49,7 @@ class ViewController: UITableViewController {
         
         title = "To Do List"
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(OverviewTableViewCell.self, forCellReuseIdentifier: "cell")
         
         let btnAdd = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(AddItem))
         let btnDeleteAll = UIBarButtonItem(title: "Delete All", style: .plain, target: self, action: #selector(DeleteAllItems))
@@ -113,38 +116,40 @@ class ViewController: UITableViewController {
     
     //MARK: - TABLEBIEW CODE
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return listItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! OverviewTableViewCell
         let item = listItems[indexPath.row]
-        cell.textLabel?.text = item.item
+        cell.itemLabel.text = item.item
+        cell.delegate = self
         
-        if item.hasSubList == true {
-            cell.accessoryType = .disclosureIndicator
-        } else {
-            cell.accessoryType = .none
-        }
+//        if item.hasSubList == true {
+//            cell.accessoryType = .disclosureIndicator
+//        } else {
+//            cell.accessoryType = .none
+//        }
         return cell
     }
-//    
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-////        tableView.deselectRow(at: indexPath, animated: false)
-//
-////        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-//
-////        if cell.accessoryType == .checkmark {
-////            cell.accessoryType = .none
-////        } else {
-////            cell.accessoryType = .checkmark
-////        }
-//
-//        let vc = ItemDetailViewController()
-//        self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
-////        self.present(vc, animated: true, completion: nil)
-//
-//    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: false)
+
+//        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+
+//        if cell.accessoryType == .checkmark {
+//            cell.accessoryType = .none
+//        } else {
+//            cell.accessoryType = .checkmark
+//        }
+
+        let vc = ItemDetailViewController()
+        self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+//        self.present(vc, animated: true, completion: nil)
+
+    }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
@@ -160,7 +165,23 @@ class ViewController: UITableViewController {
         return config
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    
     //MARK: - END OF TABLEVIEW CODE
 
 }
 
+extension ViewController: itemDelegate {
+    func CompletedItem() {
+        /* TODO: - Create bool link
+            -remove item from array
+            -add to other array
+            -RELOADDDD the tableview
+        */
+        print("got here")
+    }
+    
+    
+}
