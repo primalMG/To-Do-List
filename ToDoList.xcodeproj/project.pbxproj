@@ -15,6 +15,7 @@
 		1162679425AB844C00C0FBC1 /* ToDoListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162679325AB844C00C0FBC1 /* ToDoListTests.swift */; };
 		2C922A4725DDC84B00B40EFC /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C922A4625DDC84B00B40EFC /* Items.swift */; };
 		2C922A4B25DEB6BE00B40EFC /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C922A4A25DEB6BE00B40EFC /* ItemDetailViewController.swift */; };
+		2CA6A11925E2C15600825671 /* OverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6A11825E2C15600825671 /* OverviewTableViewCell.swift */; };
 		2CA79BF525D02CA900207BF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA79BF425D02CA900207BF8 /* GoogleService-Info.plist */; };
 		2CDC894525BDB81D00D9535A /* SubTasksOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC894425BDB81D00D9535A /* SubTasksOverviewViewController.swift */; };
 		2CDC894925BDBB6700D9535A /* SubTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC894825BDBB6700D9535A /* SubTasks.swift */; };
@@ -46,6 +47,7 @@
 		1162679525AB844C00C0FBC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C922A4625DDC84B00B40EFC /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		2C922A4A25DEB6BE00B40EFC /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
+		2CA6A11825E2C15600825671 /* OverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableViewCell.swift; sourceTree = "<group>"; };
 		2CA79BF425D02CA900207BF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2CDC894425BDB81D00D9535A /* SubTasksOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTasksOverviewViewController.swift; sourceTree = "<group>"; };
 		2CDC894825BDBB6700D9535A /* SubTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTasks.swift; sourceTree = "<group>"; };
@@ -101,10 +103,11 @@
 		1162677825AB844A00C0FBC1 /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				2CA6A11F25E3F24700825671 /* Model */,
+				2CA6A11E25E3F22500825671 /* Cells */,
 				1162677925AB844A00C0FBC1 /* AppDelegate.swift */,
 				1162677B25AB844A00C0FBC1 /* SceneDelegate.swift */,
 				1162677D25AB844A00C0FBC1 /* ViewController.swift */,
-				2C922A4625DDC84B00B40EFC /* Items.swift */,
 				1162678525AB844C00C0FBC1 /* Assets.xcassets */,
 				1162678725AB844C00C0FBC1 /* LaunchScreen.storyboard */,
 				1162678A25AB844C00C0FBC1 /* Info.plist */,
@@ -124,6 +127,22 @@
 				1162679525AB844C00C0FBC1 /* Info.plist */,
 			);
 			path = ToDoListTests;
+			sourceTree = "<group>";
+		};
+		2CA6A11E25E3F22500825671 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2CA6A11825E2C15600825671 /* OverviewTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		2CA6A11F25E3F24700825671 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2C922A4625DDC84B00B40EFC /* Items.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		50C6CA6FE192707934E4220C /* Frameworks */ = {
@@ -315,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1162677E25AB844A00C0FBC1 /* ViewController.swift in Sources */,
+				2CA6A11925E2C15600825671 /* OverviewTableViewCell.swift in Sources */,
 				1162677A25AB844A00C0FBC1 /* AppDelegate.swift in Sources */,
 				2C922A4B25DEB6BE00B40EFC /* ItemDetailViewController.swift in Sources */,
 				2CDC894525BDB81D00D9535A /* SubTasksOverviewViewController.swift in Sources */,

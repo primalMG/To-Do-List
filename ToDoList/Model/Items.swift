@@ -12,10 +12,12 @@ class Items: NSObject {
     var item : String
     var date : String
     var hasSubList: Bool
+    var id: String
     
-    init(item: String, date: String, hasSubList: Bool) {
+    init(item: String, date: String, hasSubList: Bool, id: String) {
         self.item = item
         self.date = date
         self.hasSubList = hasSubList
+        self.id = id
     }
 }

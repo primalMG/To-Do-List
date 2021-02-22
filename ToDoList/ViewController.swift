@@ -32,9 +32,10 @@ class ViewController: UITableViewController {
                 let item = dictionary["item"] as? String ?? ""
                 let date = dictionary["date"] as? String ?? ""
                 let hasSub = dictionary["hasSubList"] as? Bool ?? false
+                let id = dictionary["id"] as? String ?? ""
                 print(dictionary)
                 
-                let items = Items(item: item, date: date, hasSubList: hasSub)
+                let items = Items(item: item, date: date, hasSubList: hasSub, id: id)
                 self.listItems.append(items)
                 
                 DispatchQueue.main.async {
@@ -102,9 +103,9 @@ class ViewController: UITableViewController {
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "dd-MM-yy ss:mm:hh"
         let date = dateFormat.string(from: Date())
-        
-        let data = ["item": item, "date": date, "hasSubList": true, "completed" : false] as [String : Any]
         let ref = rootRef.child("Lists").childByAutoId()
+        let randID = ref.key
+        let data = ["item": item, "date": date, "hasSubList": true, "completed" : false, "id" : randID!] as [String : Any]
         
         ref.setValue(data)
     }
@@ -127,29 +128,30 @@ class ViewController: UITableViewController {
         }
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: false)
-
-//        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-
-//        if cell.accessoryType == .checkmark {
-//            cell.accessoryType = .none
-//        } else {
-//            cell.accessoryType = .checkmark
-//        }
-        
-        let vc = ItemDetailViewController()
-        self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
-//        self.present(vc, animated: true, completion: nil)
-
-    }
+//    
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+////        tableView.deselectRow(at: indexPath, animated: false)
+//
+////        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+//
+////        if cell.accessoryType == .checkmark {
+////            cell.accessoryType = .none
+////        } else {
+////            cell.accessoryType = .checkmark
+////        }
+//
+//        let vc = ItemDetailViewController()
+//        self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+////        self.present(vc, animated: true, completion: nil)
+//
+//    }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
-             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-            
-//            managedContext.delete(self.listItems[indexPath.row])
+            let row = self.listItems[indexPath.row].id
+            self.rootRef.child("Lists").child(row).removeValue()
+            self.listItems.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
             handler(true)
         }
         deleteAction.backgroundColor = .red
