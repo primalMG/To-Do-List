@@ -9,17 +9,25 @@
 import UIKit
 
 class ItemDetailViewController: UITableViewController {
+    
+    var id: Items? {
+        didSet {
+            if let id = self.id {
+                title = id.item
+                print(id)
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Item Details"
         
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .white
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(SubTaskTableViewCell.self, forCellReuseIdentifier: "cell")
 
-        // Do any additional setup after loading the view.
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -27,9 +35,21 @@ class ItemDetailViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Hello Detail"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SubTaskTableViewCell
+        cell.itemLabel.text = "Sub detail goes here"
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+//            let row = self
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            handler(true)
+        }
+        deleteAction.backgroundColor = .red
+        let config = UISwipeActionsConfiguration(actions: [deleteAction])
+        config.performsFirstActionWithFullSwipe = true
+        return config
     }
 
     /*

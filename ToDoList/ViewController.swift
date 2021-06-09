@@ -20,11 +20,15 @@ class ViewController: UITableViewController {
     var listItems = [Items]()
     var completedItems = [Items]()
     var subtask = false
+    var selectedTask : Items?
     var ref : DatabaseReference!
     let rootRef = Database.database().reference()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
         rootRef.child("Lists").observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
@@ -87,7 +91,6 @@ class ViewController: UITableViewController {
     }
     
     @objc func AddItem() {
-        print("Add Item")
         let addItemAlrt = UIAlertController(title: "Add Item", message: "What would you like to add to the list?", preferredStyle: .alert)
         
         
@@ -124,8 +127,9 @@ class ViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! OverviewTableViewCell
         let item = listItems[indexPath.row]
         cell.itemLabel.text = item.item
-        cell.delegate = self
-        
+        cell.btnChecked.tag = indexPath.row
+        cell.btnChecked.addTarget(self, action: #selector(checkedBtn), for: .touchUpInside)
+        cell.localIndexPath = indexPath
 //        if item.hasSubList == true {
 //            cell.accessoryType = .disclosureIndicator
 //        } else {
@@ -144,7 +148,6 @@ class ViewController: UITableViewController {
 //        } else {
 //            cell.accessoryType = .checkmark
 //        }
-
         let vc = ItemDetailViewController()
         self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
 //        self.present(vc, animated: true, completion: nil)
@@ -170,18 +173,22 @@ class ViewController: UITableViewController {
     }
     
     //MARK: - END OF TABLEVIEW CODE
-
-}
-
-extension ViewController: itemDelegate {
-    func CompletedItem() {
-        /* TODO: - Create bool link
-            -remove item from array
-            -add to other array
-            -RELOADDDD the tableview
-        */
-        print("got here")
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? ItemDetailViewController else { return }
+        destination.id = selectedTask
     }
     
-    
+    @objc func checkedBtn(sender: UIButton) {
+        print(sender.tag)
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+//        let cell = tableView.cellForRow(at: indexPath) as! OverviewTableViewCell
+        let id = self.listItems[indexPath.row].id
+        let ref = rootRef.child("Lists").child(id)
+        
+        ref.updateChildValues(["completed" : true])
+        listItems.remove(at: sender.tag)
+        tableView.reloadData()
+    }
+
 }

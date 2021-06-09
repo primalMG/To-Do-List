@@ -11,13 +11,12 @@
 		1162677C25AB844A00C0FBC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162677B25AB844A00C0FBC1 /* SceneDelegate.swift */; };
 		1162677E25AB844A00C0FBC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162677D25AB844A00C0FBC1 /* ViewController.swift */; };
 		1162678625AB844C00C0FBC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1162678525AB844C00C0FBC1 /* Assets.xcassets */; };
-		1162678925AB844C00C0FBC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1162678725AB844C00C0FBC1 /* LaunchScreen.storyboard */; };
 		1162679425AB844C00C0FBC1 /* ToDoListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162679325AB844C00C0FBC1 /* ToDoListTests.swift */; };
+		2C172BCF266E1BD2005F489B /* SubTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C172BCE266E1BD2005F489B /* SubTaskTableViewCell.swift */; };
 		2C922A4725DDC84B00B40EFC /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C922A4625DDC84B00B40EFC /* Items.swift */; };
 		2C922A4B25DEB6BE00B40EFC /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C922A4A25DEB6BE00B40EFC /* ItemDetailViewController.swift */; };
 		2CA6A11925E2C15600825671 /* OverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6A11825E2C15600825671 /* OverviewTableViewCell.swift */; };
 		2CA79BF525D02CA900207BF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA79BF425D02CA900207BF8 /* GoogleService-Info.plist */; };
-		2CDC894525BDB81D00D9535A /* SubTasksOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC894425BDB81D00D9535A /* SubTasksOverviewViewController.swift */; };
 		2CDC894925BDBB6700D9535A /* SubTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC894825BDBB6700D9535A /* SubTasks.swift */; };
 		2CDC894D25BDBB9C00D9535A /* SelectSubTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC894C25BDBB9C00D9535A /* SelectSubTaskViewController.swift */; };
 		4BDE59606E8D1C26129C5DAB /* Pods_ToDoList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE976D05DF90EF25FEC93572 /* Pods_ToDoList.framework */; };
@@ -40,16 +39,15 @@
 		1162677B25AB844A00C0FBC1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1162677D25AB844A00C0FBC1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1162678525AB844C00C0FBC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1162678825AB844C00C0FBC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1162678A25AB844C00C0FBC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1162678F25AB844C00C0FBC1 /* ToDoListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1162679325AB844C00C0FBC1 /* ToDoListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTests.swift; sourceTree = "<group>"; };
 		1162679525AB844C00C0FBC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C172BCE266E1BD2005F489B /* SubTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTaskTableViewCell.swift; sourceTree = "<group>"; };
 		2C922A4625DDC84B00B40EFC /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		2C922A4A25DEB6BE00B40EFC /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		2CA6A11825E2C15600825671 /* OverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableViewCell.swift; sourceTree = "<group>"; };
 		2CA79BF425D02CA900207BF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		2CDC894425BDB81D00D9535A /* SubTasksOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTasksOverviewViewController.swift; sourceTree = "<group>"; };
 		2CDC894825BDBB6700D9535A /* SubTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTasks.swift; sourceTree = "<group>"; };
 		2CDC894C25BDBB9C00D9535A /* SelectSubTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSubTaskViewController.swift; sourceTree = "<group>"; };
 		2D5519AF50EF842C6E93EBDA /* Pods-ToDoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList.release.xcconfig"; path = "Target Support Files/Pods-ToDoList/Pods-ToDoList.release.xcconfig"; sourceTree = "<group>"; };
@@ -106,14 +104,11 @@
 				2CA6A11F25E3F24700825671 /* Model */,
 				2CA6A11E25E3F22500825671 /* Cells */,
 				1162677925AB844A00C0FBC1 /* AppDelegate.swift */,
+				2CDC894C25BDBB9C00D9535A /* SelectSubTaskViewController.swift */,
 				1162677B25AB844A00C0FBC1 /* SceneDelegate.swift */,
 				1162677D25AB844A00C0FBC1 /* ViewController.swift */,
 				1162678525AB844C00C0FBC1 /* Assets.xcassets */,
-				1162678725AB844C00C0FBC1 /* LaunchScreen.storyboard */,
 				1162678A25AB844C00C0FBC1 /* Info.plist */,
-				2CDC894425BDB81D00D9535A /* SubTasksOverviewViewController.swift */,
-				2CDC894825BDBB6700D9535A /* SubTasks.swift */,
-				2CDC894C25BDBB9C00D9535A /* SelectSubTaskViewController.swift */,
 				2CA79BF425D02CA900207BF8 /* GoogleService-Info.plist */,
 				2C922A4A25DEB6BE00B40EFC /* ItemDetailViewController.swift */,
 			);
@@ -133,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				2CA6A11825E2C15600825671 /* OverviewTableViewCell.swift */,
+				2C172BCE266E1BD2005F489B /* SubTaskTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -140,6 +136,7 @@
 		2CA6A11F25E3F24700825671 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2CDC894825BDBB6700D9535A /* SubTasks.swift */,
 				2C922A4625DDC84B00B40EFC /* Items.swift */,
 			);
 			path = Model;
@@ -249,7 +246,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1162678925AB844C00C0FBC1 /* LaunchScreen.storyboard in Resources */,
 				1162678625AB844C00C0FBC1 /* Assets.xcassets in Resources */,
 				2CA79BF525D02CA900207BF8 /* GoogleService-Info.plist in Resources */,
 			);
@@ -337,11 +333,11 @@
 				2CA6A11925E2C15600825671 /* OverviewTableViewCell.swift in Sources */,
 				1162677A25AB844A00C0FBC1 /* AppDelegate.swift in Sources */,
 				2C922A4B25DEB6BE00B40EFC /* ItemDetailViewController.swift in Sources */,
-				2CDC894525BDB81D00D9535A /* SubTasksOverviewViewController.swift in Sources */,
 				2CDC894D25BDBB9C00D9535A /* SelectSubTaskViewController.swift in Sources */,
 				2C922A4725DDC84B00B40EFC /* Items.swift in Sources */,
 				1162677C25AB844A00C0FBC1 /* SceneDelegate.swift in Sources */,
 				2CDC894925BDBB6700D9535A /* SubTasks.swift in Sources */,
+				2C172BCF266E1BD2005F489B /* SubTaskTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,17 +358,6 @@
 			targetProxy = 1162679025AB844C00C0FBC1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		1162678725AB844C00C0FBC1 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1162678825AB844C00C0FBC1 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1162679625AB844C00C0FBC1 /* Debug */ = {
@@ -500,6 +485,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BKJ97444K2;
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -518,6 +504,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BKJ97444K2;
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

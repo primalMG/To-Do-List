@@ -1,21 +1,19 @@
 //
-//  OverviewTableViewCell.swift
+//  SubTaskTableViewCell.swift
 //  ToDoList
 //
-//  Created by Marcus Gardner on 21/02/2021.
+//  Created by Marcus Gardner on 07/06/2021.
 //  Copyright © 2021 Marcus Gardner. All rights reserved.
 //
 
 import UIKit
 
-class OverviewTableViewCell: UITableViewCell {
+class SubTaskTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
-    var localIndexPath: IndexPath!
     
     let itemLabel : UILabel = {
         let lbl = UILabel()
@@ -28,7 +26,7 @@ class OverviewTableViewCell: UITableViewCell {
         btn.backgroundColor = .clear
         btn.layer.cornerRadius = 5
         btn.layer.borderWidth = 1
-        btn.layer.borderColor = UIColor.purple.cgColor
+        btn.layer.borderColor = UIColor.darkGray.cgColor
         return btn
     }()
     
@@ -41,7 +39,6 @@ class OverviewTableViewCell: UITableViewCell {
         self.contentView.addSubview(itemLabel)
         self.contentView.addSubview(btnChecked)
         
-        
         NSLayoutConstraint.activate([
             itemLabel.leadingAnchor.constraint(equalTo: self.btnChecked.trailingAnchor, constant: 10),
             itemLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -49,11 +46,8 @@ class OverviewTableViewCell: UITableViewCell {
             btnChecked.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 40),
             btnChecked.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
             btnChecked.heightAnchor.constraint(equalToConstant: 20),
-            
-            
         ])
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
