@@ -7,31 +7,67 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class ItemDetailViewController: UITableViewController {
     
-    var id: Items? {
+    var taskId: Items? {
         didSet {
-            if let id = self.id {
+            if let id = self.taskId {
                 title = id.item
-                print(id)
             }
         }
     }
+    
+    var ref : DatabaseReference!
+    let rootRef = Database.database().reference()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Item Details"
+        //MARK: - Navigation Buttons
+        let btnAdd = UIBarButtonItem(title: "Add", style: .done, target: self, action: #selector(AddSubItem))
+        let btnCancel = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(CancelButton))
         
-        view.backgroundColor = .white
+        navigationItem.rightBarButtonItem = btnAdd
+        navigationItem.leftBarButtonItem = btnCancel
         
         tableView.register(SubTaskTableViewCell.self, forCellReuseIdentifier: "cell")
-
+    }
+    
+    @objc func AddSubItem() {
+        let addSubItemAlrt = UIAlertController(title: "Add Task", message: "Add a sub task to " + taskId!.item + " list", preferredStyle: .alert)
+        
+        addSubItemAlrt.addAction(UIAlertAction(title: "Add", style: .default, handler: { action in
+            guard let textField = addSubItemAlrt.textFields?.first, let savedItem = textField.text else { return }
+            self.Save(item: savedItem)
+        }))
+        
+        addSubItemAlrt.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        addSubItemAlrt.addTextField { txtField in
+            txtField.placeholder = "Enter your sub item"
+        }
+        
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "dd-MM-yy ss:mm:hh"
+        let date = dateFormat.string(from: Date())
+        let ref = rootRef.child("SubTasks").childByAutoId()
+        let taskId = ref.key
+        let data = ["item": "sub item", "date": date, "completed" : false,"taskId": taskId!, "id": taskId!] as [String : Any]
+        
+        ref.setValue(data)
+    }
+    
+    @objc func CancelButton() {
+        dismiss(animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
+    }
+    
+    func Save(item: String) {
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

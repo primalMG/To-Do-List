@@ -138,22 +138,6 @@ class ViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: false)
-
-//        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-
-//        if cell.accessoryType == .checkmark {
-//            cell.accessoryType = .none
-//        } else {
-//            cell.accessoryType = .checkmark
-//        }
-        let vc = ItemDetailViewController()
-        self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
-//        self.present(vc, animated: true, completion: nil)
-
-    }
-    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
             let row = self.listItems[indexPath.row].id
@@ -172,11 +156,18 @@ class ViewController: UITableViewController {
         return 50
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ItemDetailViewController()
+        vc.taskId = listItems[indexPath.row]
+        self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        
+    }
+    
     //MARK: - END OF TABLEVIEW CODE
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destination = segue.destination as? ItemDetailViewController else { return }
-        destination.id = selectedTask
+        destination.taskId = selectedTask
     }
     
     @objc func checkedBtn(sender: UIButton) {
