@@ -57,8 +57,9 @@ class ViewController: UITableViewController {
         
         let btnAdd = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(AddItem))
         let btnDeleteAll = UIBarButtonItem(title: "Delete All", style: .plain, target: self, action: #selector(DeleteAllItems))
+        let btnCompleted = UIBarButtonItem(title: "Comp items", style: .plain, target: self, action: #selector(CompletedItems))
         
-        navigationItem.rightBarButtonItem = btnAdd
+        navigationItem.rightBarButtonItems = [btnAdd, btnCompleted]
         navigationItem.leftBarButtonItems = [btnDeleteAll]
         
     }
@@ -66,15 +67,17 @@ class ViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+//        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
-        
-        
+    }
+    
+    @objc func CompletedItems() {
+        //TODO: create a button to toggle the completed todo list
     }
     
     @objc func DeleteAllItems() {
         let deleteAllAlrt = UIAlertController(title: "Clear List", message: "Sure you want to delete all list items?", preferredStyle: .alert)
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+//        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         
         
@@ -90,20 +93,31 @@ class ViewController: UITableViewController {
         print("Clear all checkmarks")
     }
     
-    @objc func AddItem() {
-        let addItemAlrt = UIAlertController(title: "Add Item", message: "What would you like to add to the list?", preferredStyle: .alert)
-        
-        
-        addItemAlrt.addAction(UIAlertAction(title: "Add", style: .default, handler: { (action) in
-            guard let textField = addItemAlrt.textFields?.first, let savedItem = textField.text else { return }
-            self.Save(item: savedItem)
-        }))
-        
-        addItemAlrt.addTextField(configurationHandler: nil)
-        addItemAlrt.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(addItemAlrt, animated: true, completion: nil)
-    }
+//    @objc func AddItem() {
+//        let addItemAlrt = UIAlertController(title: "Add Item", message: "What would you like to add to the list?", preferredStyle: .alert)
+//
+//
+//        addItemAlrt.addAction(UIAlertAction(title: "Add", style: .default, handler: { (action) in
+//            guard let textField = addItemAlrt.textFields?.first, let savedItem = textField.text else { return }
+//
+//            self.Save(item: savedItem)
+//        }))
+//
+//        addItemAlrt.addTextField { txt in
+//            txt.autocapitalizationType = .sentences
+//        }
+//        addItemAlrt.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//        self.present(addItemAlrt, animated: true, completion: nil)
+//    }
     
+    @objc func AddItem() {
+        listItems.append(Items.init(item: "test", date: "test", hasSubList: false, id: "12345"))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            self.tableView.insertRows(at: [IndexPath(row: self.listItems.count - 1, section: 0)], with: .top)
+        })
+    }
+
     
     func Save(item: String) {
         let dateFormat = DateFormatter()
@@ -160,7 +174,6 @@ class ViewController: UITableViewController {
         let vc = ItemDetailViewController()
         vc.taskId = listItems[indexPath.row]
         self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
-        
     }
     
     //MARK: - END OF TABLEVIEW CODE

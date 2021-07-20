@@ -52,8 +52,8 @@ class ItemDetailViewController: UITableViewController {
         dateFormat.dateFormat = "dd-MM-yy ss:mm:hh"
         let date = dateFormat.string(from: Date())
         let ref = rootRef.child("SubTasks").childByAutoId()
-        let taskId = ref.key
-        let data = ["item": "sub item", "date": date, "completed" : false,"taskId": taskId!, "id": taskId!] as [String : Any]
+        let id = ref.key
+        let data = ["item": "sub item", "date": date, "completed" : false,"taskId": taskId!, "id": id!] as [String : Any]
         
         ref.setValue(data)
     }

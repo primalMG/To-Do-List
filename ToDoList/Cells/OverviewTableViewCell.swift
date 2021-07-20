@@ -12,6 +12,8 @@ class OverviewTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.layoutIfNeeded()
         // Initialization code
     }
     
@@ -26,10 +28,30 @@ class OverviewTableViewCell: UITableViewCell {
     let btnChecked : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .clear
-        btn.layer.cornerRadius = 5
+        btn.layer.cornerRadius = btn.frame.size.height / 2
+        btn.clipsToBounds = true
         btn.layer.borderWidth = 1
+        btn.layer.masksToBounds = true
         btn.layer.borderColor = UIColor.purple.cgColor
+        
+        print(btn.layer.cornerRadius)
         return btn
+    }()
+    
+    let btninfo : UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = .white
+        
+        btn.layer.borderColor = UIColor.blue.cgColor
+        return btn
+    }()
+    
+    let txtItem : UITextField = {
+        let txt = UITextField()
+        
+        txt.placeholder = "Enter the ting here"
+        
+        return txt
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -37,18 +59,22 @@ class OverviewTableViewCell: UITableViewCell {
         
         itemLabel.translatesAutoresizingMaskIntoConstraints = false
         btnChecked.translatesAutoresizingMaskIntoConstraints = false
+        btninfo.translatesAutoresizingMaskIntoConstraints = false
+        txtItem.translatesAutoresizingMaskIntoConstraints = false
         
         self.contentView.addSubview(itemLabel)
         self.contentView.addSubview(btnChecked)
+        self.contentView.addSubview(btninfo)
+        self.contentView.addSubview(txtItem)
         
         
         NSLayoutConstraint.activate([
             itemLabel.leadingAnchor.constraint(equalTo: self.btnChecked.trailingAnchor, constant: 10),
-            itemLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
+            itemLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 13),
             
             btnChecked.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 40),
-            btnChecked.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
-            btnChecked.heightAnchor.constraint(equalToConstant: 20),
+//            btnChecked.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 15),
+//            btnChecked.heightAnchor.constraint(equalToConstant: 20),
             
             
         ])
