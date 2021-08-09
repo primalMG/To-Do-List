@@ -111,12 +111,23 @@ class ViewController: UITableViewController {
 //    }
     
     @objc func AddItem() {
-        listItems.append(Items.init(item: "test", date: "test", hasSubList: false, id: "12345"))
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "dd-MM-yy ss:mm:hh"
+        let date = dateFormat.string(from: Date())
+        let ref = rootRef.child("Lists").childByAutoId()
+        let randID = ref.key
+        let data = ["item": "", "date": date, "hasSubList": true, "completed" : false, "id" : randID!] as [String : Any]
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-            self.tableView.insertRows(at: [IndexPath(row: self.listItems.count - 1, section: 0)], with: .top)
-        })
+        ref.setValue(data)
+        
+        
+//        listItems.append(Items.init(item: "", date: date, hasSubList: false, id: "12324"))
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+//            self.tableView.insertRows(at: [IndexPath(row: self.listItems.count - 1, section: 0)], with: .bottom)
+//        })
     }
+    
+
 
     
     func Save(item: String) {
@@ -140,7 +151,8 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! OverviewTableViewCell
         let item = listItems[indexPath.row]
-        cell.itemLabel.text = item.item
+        cell.txtItem.text = item.item
+        cell.txtItem.delegate = self
         cell.btnChecked.tag = indexPath.row
         cell.btnChecked.addTarget(self, action: #selector(checkedBtn), for: .touchUpInside)
         cell.localIndexPath = indexPath
@@ -176,6 +188,17 @@ class ViewController: UITableViewController {
         self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let animation = AnimationShop.slideInAnimation(duration: 0.5)
+        let animator = Animations(animation: animation)
+        
+        if indexPath.row == listItems.count - 1 {
+            animator.Animate(cell: cell, at: indexPath, in: tableView)
+        }
+        
+        
+    }
+    
     //MARK: - END OF TABLEVIEW CODE
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -195,4 +218,16 @@ class ViewController: UITableViewController {
         tableView.reloadData()
     }
 
+}
+
+extension ViewController : UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        self.view.endEditing(true)
+    }
 }

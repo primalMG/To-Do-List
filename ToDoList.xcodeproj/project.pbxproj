@@ -13,6 +13,8 @@
 		1162678625AB844C00C0FBC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1162678525AB844C00C0FBC1 /* Assets.xcassets */; };
 		1162679425AB844C00C0FBC1 /* ToDoListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1162679325AB844C00C0FBC1 /* ToDoListTests.swift */; };
 		2C172BCF266E1BD2005F489B /* SubTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C172BCE266E1BD2005F489B /* SubTaskTableViewCell.swift */; };
+		2C89FAAC26C1C920009A863F /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89FAAB26C1C920009A863F /* Animations.swift */; };
+		2C89FAAE26C1CA0D009A863F /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C89FAAD26C1CA0D009A863F /* Animator.swift */; };
 		2C922A4725DDC84B00B40EFC /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C922A4625DDC84B00B40EFC /* Items.swift */; };
 		2C922A4B25DEB6BE00B40EFC /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C922A4A25DEB6BE00B40EFC /* ItemDetailViewController.swift */; };
 		2CA6A11925E2C15600825671 /* OverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6A11825E2C15600825671 /* OverviewTableViewCell.swift */; };
@@ -44,6 +46,8 @@
 		1162679325AB844C00C0FBC1 /* ToDoListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTests.swift; sourceTree = "<group>"; };
 		1162679525AB844C00C0FBC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C172BCE266E1BD2005F489B /* SubTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTaskTableViewCell.swift; sourceTree = "<group>"; };
+		2C89FAAB26C1C920009A863F /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
+		2C89FAAD26C1CA0D009A863F /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		2C922A4625DDC84B00B40EFC /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		2C922A4A25DEB6BE00B40EFC /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		2CA6A11825E2C15600825671 /* OverviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTableViewCell.swift; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 				1162678A25AB844C00C0FBC1 /* Info.plist */,
 				2CA79BF425D02CA900207BF8 /* GoogleService-Info.plist */,
 				2C922A4A25DEB6BE00B40EFC /* ItemDetailViewController.swift */,
+				2C89FAAB26C1C920009A863F /* Animations.swift */,
+				2C89FAAD26C1CA0D009A863F /* Animator.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -335,8 +341,10 @@
 				2C922A4B25DEB6BE00B40EFC /* ItemDetailViewController.swift in Sources */,
 				2CDC894D25BDBB9C00D9535A /* SelectSubTaskViewController.swift in Sources */,
 				2C922A4725DDC84B00B40EFC /* Items.swift in Sources */,
+				2C89FAAC26C1C920009A863F /* Animations.swift in Sources */,
 				1162677C25AB844A00C0FBC1 /* SceneDelegate.swift in Sources */,
 				2CDC894925BDBB6700D9535A /* SubTasks.swift in Sources */,
+				2C89FAAE26C1CA0D009A863F /* Animator.swift in Sources */,
 				2C172BCF266E1BD2005F489B /* SubTaskTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
